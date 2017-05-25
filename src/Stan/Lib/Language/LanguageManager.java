@@ -33,7 +33,7 @@ public class LanguageManager implements IManager {
 		customDatas = null;
 	}
 
-	public void sendLanguage(Player receiver, String message, Object... replaceSources) {
+	public void sendLanguage(Player receiver, String message, RW... replaceWrappers) {
 		if (playerData != null) {
 			if (playerData.getData().contains(receiver.getUniqueId().toString())) {
 				String preferedLanguage = playerData.getData().getString(receiver.getUniqueId().toString());
@@ -52,7 +52,7 @@ public class LanguageManager implements IManager {
 						Data customData = customDatas.get(preferedLanguage);
 
 						if (customData.getData().contains(message)) {
-							sendLanguage(receiver, customData.getData().get(message), replaceSources);
+							sendLanguage(receiver, customData.getData().get(message), replaceWrappers);
 							return;
 						} else {
 							Main.getInstance().printFailure("Couldn't find: '" + message + "' in '" + preferedLanguage + ".yml'.");
@@ -69,23 +69,23 @@ public class LanguageManager implements IManager {
 
 		if (defaultData != null) {
 			if (defaultData.getData().contains(message)) {
-				sendLanguage(receiver, defaultData.getData().get(message), replaceSources);
+				sendLanguage(receiver, defaultData.getData().get(message), replaceWrappers);
 			} else {
 				Main.getInstance().printFailure("Couldn't find: '" + message + "' in 'defaults.yml'.");
 			}
 		}
 	}
 
-	private void sendLanguage(Player receiver, Object objMessage, Object... replaceSources) {
+	private void sendLanguage(Player receiver, Object objMessage, RW... replaceWrappers) {
 		if (Iterable.class.isAssignableFrom(objMessage.getClass())) {
 			Iterable<?> it = (Iterable<?>) objMessage;
 			for (Object s : it) {
 				if (s != null) {
-					receiver.sendMessage(ChatUtils.B(s.toString(), replaceSources));
+					receiver.sendMessage(ChatUtils.B(s.toString(), replaceWrappers));
 				}
 			}
 		} else {
-			receiver.sendMessage(ChatUtils.B((String) objMessage, replaceSources));
+			receiver.sendMessage(ChatUtils.B((String) objMessage, replaceWrappers));
 		}
 	}
 

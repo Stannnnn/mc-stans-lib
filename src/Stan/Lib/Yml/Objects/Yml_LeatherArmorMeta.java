@@ -4,6 +4,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import Stan.Lib.ReplaceWrappers.RW;
 import Stan.Lib.Yml.Annotations.YmlObject;
 
 public class Yml_LeatherArmorMeta extends Yml_ItemMeta {
@@ -12,8 +13,8 @@ public class Yml_LeatherArmorMeta extends Yml_ItemMeta {
 	private Yml_Color color;
 
 	@Override
-	public ItemMeta getItemMeta(ItemStack itemStack, Object... replaceSources) {
-		ItemMeta itemMeta = super.getItemMeta(itemStack, replaceSources);
+	public ItemMeta getItemMeta(ItemStack itemStack, RW... replaceWrappers) {
+		ItemMeta itemMeta = super.getItemMeta(itemStack, replaceWrappers);
 
 		if (color != null) {
 			LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;

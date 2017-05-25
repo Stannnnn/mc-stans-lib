@@ -9,7 +9,6 @@ import Stan.Lib.Hooks.PexHook;
 import Stan.Lib.Hooks.VaultHook;
 import Stan.Lib.Inventories.InventoryManager;
 import Stan.Lib.Language.LanguageManager;
-import Stan.Lib.ReplaceWrappers.RWManager;
 import Stan.Lib.Utils.AnsiUtils;
 import Stan.Tests.MainTest;
 
@@ -25,7 +24,6 @@ public class Main extends JavaPlugin {
 	private InventoryManager inventoryManager;
 	private ActionManager actionManager;
 	private LanguageManager languageManager;
-	private RWManager rwManager;
 
 	private VaultHook vaultHook;
 	private PexHook pexHook;
@@ -57,10 +55,6 @@ public class Main extends JavaPlugin {
 			languageManager.onDisable();
 		}
 		
-		if (rwManager != null){
-			rwManager.onDisable();
-		}
-		
 		if (hookManager != null){
 			hookManager.onDisable();
 		}
@@ -86,10 +80,6 @@ public class Main extends JavaPlugin {
 
 	public LanguageManager getLanguageManager() {
 		return languageManager == null ? languageManager = new LanguageManager() : languageManager;
-	}
-
-	public RWManager getRWManager() {
-		return rwManager == null ? rwManager = new RWManager() : rwManager;
 	}
 
 	public VaultHook getVaultHook() {

@@ -4,9 +4,9 @@ package Stan.Lib.ReplaceWrappers;
 public class RW {
 
 	private final String from;
-	private final Object to;
+	private final String to;
 
-	public RW(String from, Object to) {
+	public RW(String from, String to) {
 		this.from = from;
 		this.to = to;
 	}
@@ -15,7 +15,7 @@ public class RW {
 		return from;
 	}
 
-	public Object getTo() {
+	public String getTo() {
 		return to;
 	}
 

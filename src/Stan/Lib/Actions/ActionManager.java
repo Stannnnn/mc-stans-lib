@@ -53,7 +53,7 @@ public class ActionManager implements IManager {
 	@SuppressWarnings("unchecked")
 	public void executeActions(String fileName, YamlConfiguration yamlConfiguration, String configurationSection, Player player, RW... customVariables) {
 		List<Yml_Action> actions = (List<Yml_Action>) YmlUtils.get(fileName, yamlConfiguration, configurationSection, Yml_Action.class, true);
-		
+
 		if (actions != null && !actions.isEmpty()) {
 			executeActions(actions, player, customVariables);
 		}
@@ -100,7 +100,7 @@ public class ActionManager implements IManager {
 		actionMethods.put("ConsoleCommand", new ActionMethod(new ActionRunnable() {
 			@Override
 			public void run() {
-				Main.getInstance().getServer().dispatchCommand(Main.getInstance().getServer().getConsoleSender(), ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+				Main.getInstance().getServer().dispatchCommand(Main.getInstance().getServer().getConsoleSender(), ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 			}
 		}));
 
@@ -111,7 +111,7 @@ public class ActionManager implements IManager {
 
 				for (Player p : Main.getInstance().getServer().getOnlinePlayers()) {
 					if (perm == null || (perm != null && p.hasPermission(perm))) {
-						Main.getInstance().getServer().dispatchCommand(Main.getInstance().getServer().getConsoleSender(), ChatUtils.B(action.getValue(), p, actions.getCustomVariables()));
+						Main.getInstance().getServer().dispatchCommand(Main.getInstance().getServer().getConsoleSender(), ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 					}
 				}
 			}
@@ -121,7 +121,7 @@ public class ActionManager implements IManager {
 			@Override
 			public void run() {
 				if (player != null) {
-					player.performCommand(ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+					player.performCommand(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 				}
 			}
 		}));
@@ -133,7 +133,7 @@ public class ActionManager implements IManager {
 
 				for (Player p : Main.getInstance().getServer().getOnlinePlayers()) {
 					if (perm == null || (perm != null && p.hasPermission(perm))) {
-						p.performCommand(ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+						p.performCommand(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 					}
 				}
 			}
@@ -142,7 +142,7 @@ public class ActionManager implements IManager {
 		actionMethods.put("ConsoleMessage", new ActionMethod(new ActionRunnable() {
 			@Override
 			public void run() {
-				Main.getInstance().getServer().broadcastMessage(ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+				Main.getInstance().getServer().broadcastMessage(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 			}
 		}));
 
@@ -151,12 +151,12 @@ public class ActionManager implements IManager {
 			public void run() {
 				if (player != null) {
 					System.out.println("NOWWW");
-					
-					for (RW rw : actions.getCustomVariables()){
+
+					for (RW rw : actions.getCustomVariables()) {
 						System.out.println(rw);
 					}
-					
-					player.sendMessage(ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+
+					player.sendMessage(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 				}
 			}
 		}));
@@ -168,7 +168,7 @@ public class ActionManager implements IManager {
 
 				for (Player p : Main.getInstance().getServer().getOnlinePlayers()) {
 					if (perm == null || (perm != null && p.hasPermission(perm))) {
-						p.sendMessage(ChatUtils.B(action.getValue(), player, actions.getCustomVariables()));
+						p.sendMessage(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 					}
 				}
 			}
@@ -322,7 +322,7 @@ public class ActionManager implements IManager {
 
 				Yml_Title tit = (Yml_Title) action.getActualValue();
 
-				TitleAPI.sendTitle(player, tit.getFadeIn(), tit.getStay(), tit.getFadeOut(), ChatUtils.B(tit.getTitle(), player, actions.getCustomVariables()), ChatUtils.B(tit.getSubtitle(), player, actions.getCustomVariables()));
+				TitleAPI.sendTitle(player, tit.getFadeIn(), tit.getStay(), tit.getFadeOut(), ChatUtils.B(tit.getTitle(), actions.getCustomVariables()), ChatUtils.B(tit.getSubtitle(), actions.getCustomVariables()));
 			}
 		}));
 

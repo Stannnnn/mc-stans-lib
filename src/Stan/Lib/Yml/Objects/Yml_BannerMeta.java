@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import Stan.Lib.ReplaceWrappers.RW;
 import Stan.Lib.Yml.Annotations.YmlObject;
 
 public class Yml_BannerMeta extends Yml_ItemMeta {
@@ -18,8 +19,8 @@ public class Yml_BannerMeta extends Yml_ItemMeta {
 	private List<Yml_Pattern> patterns;
 
 	@Override
-	public ItemMeta getItemMeta(ItemStack itemStack, Object... replaceSources) {
-		ItemMeta itemMeta = super.getItemMeta(itemStack, replaceSources);
+	public ItemMeta getItemMeta(ItemStack itemStack, RW... replaceWrappers) {
+		ItemMeta itemMeta = super.getItemMeta(itemStack, replaceWrappers);
 
 		BannerMeta bannerMeta = (BannerMeta) itemMeta;
 

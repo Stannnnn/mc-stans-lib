@@ -4,6 +4,7 @@ package Stan.Lib.Yml.Objects;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import Stan.Lib.ReplaceWrappers.RW;
 import Stan.Lib.Yml.Annotations.YmlObject;
 
 public class Yml_ItemStack {
@@ -20,9 +21,9 @@ public class Yml_ItemStack {
 	@YmlObject(skip = true)
 	private Yml_ItemMeta itemMeta;
 
-	public ItemStack getItemStack(Object... replaceSources) {
+	public ItemStack getItemStack(RW... replaceWrappers) {
 		ItemStack itemStack = new ItemStack(Material.getMaterial(id), amount.getAmount(), (short) data);
-		itemStack.setItemMeta(itemMeta.getItemMeta(itemStack, replaceSources));
+		itemStack.setItemMeta(itemMeta.getItemMeta(itemStack, replaceWrappers));
 		return itemStack;
 	}
 

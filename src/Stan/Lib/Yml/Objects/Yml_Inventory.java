@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 
 import Stan.Lib.Main;
 import Stan.Lib.Conversion.ChatUtils;
+import Stan.Lib.ReplaceWrappers.RW;
 import Stan.Lib.Yml.Annotations.YmlObject;
 
 public class Yml_Inventory {
@@ -23,12 +24,12 @@ public class Yml_Inventory {
 	@YmlObject
 	private List<Yml_ItemStack> items;
 
-	public Inventory getInventory(Object... replaceSources) {
+	public Inventory getInventory(RW... replaceWrappers) {
 		if (name != null) {
 			if (size != 0) {
-				return Main.getInstance().getInventoryManager().createInventory(size, ChatUtils.B(name, replaceSources));
+				return Main.getInstance().getInventoryManager().createInventory(size, ChatUtils.B(name, replaceWrappers));
 			} else if (type != null) {
-				return Main.getInstance().getInventoryManager().createInventory(InventoryType.valueOf(type), ChatUtils.B(name, replaceSources));
+				return Main.getInstance().getInventoryManager().createInventory(InventoryType.valueOf(type), ChatUtils.B(name, replaceWrappers));
 			}
 		}
 

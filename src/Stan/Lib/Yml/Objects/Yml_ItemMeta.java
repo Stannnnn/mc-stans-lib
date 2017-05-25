@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import Stan.Lib.Conversion.ChatUtils;
+import Stan.Lib.ReplaceWrappers.RW;
 import Stan.Lib.Yml.Annotations.YmlClass;
 import Stan.Lib.Yml.Annotations.YmlObject;
 
@@ -25,15 +26,15 @@ public class Yml_ItemMeta {
 	@YmlObject
 	private List<String> flags;
 
-	public ItemMeta getItemMeta(ItemStack itemStack, Object... replaceSources) {
+	public ItemMeta getItemMeta(ItemStack itemStack, RW... replaceWrappers) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 
 		if (name != null) {
-			itemMeta.setDisplayName(ChatUtils.B(name, replaceSources));
+			itemMeta.setDisplayName(ChatUtils.B(name, replaceWrappers));
 		}
 
 		if (lore != null) {
-			itemMeta.setLore(ChatUtils.B(lore, replaceSources));
+			itemMeta.setLore(ChatUtils.B(lore, replaceWrappers));
 		}
 
 		if (enchantments != null) {

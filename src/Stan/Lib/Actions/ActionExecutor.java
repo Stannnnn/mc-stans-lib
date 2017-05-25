@@ -156,7 +156,7 @@ public class ActionExecutor {
 		}
 	}
 
-	public void setCustomVariable(String variable, Object value) {
+	public void setCustomVariable(String variable, String value) {
 		if (!Character.isUpperCase(variable.charAt(0))){
 			variable = StringUtils.upperFirst(variable);
 		}

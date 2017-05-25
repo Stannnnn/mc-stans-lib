@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 
-import Stan.Lib.Main;
 import Stan.Lib.ReplaceWrappers.RW;
 
 /**
@@ -30,8 +29,8 @@ public class ChatUtils {
 	public static String R(String a, RW... replaceWrappers) {
 		if (a != null && replaceWrappers != null) {
 			for (RW rw : replaceWrappers) {
-				if (rw != null && rw.getFrom() != null && a.contains(rw.getFrom().toString())) {
-					a = a.replace(rw.getFrom().toString(), rw.getTo() == null ? "" : rw.getTo().toString());
+				if (rw != null && rw.getFrom() != null && a.contains(rw.getFrom())) {
+					a = a.replace(rw.getFrom(), rw.getTo() == null ? "" : rw.getTo());
 				}
 			}
 		}
@@ -47,12 +46,12 @@ public class ChatUtils {
 		return tS;
 	}
 
-	public static String B(String s, Object... replaceSources) {
-		return K(R(s, Main.getInstance().getRWManager().getRWs(replaceSources)));
+	public static String B(String s, RW... replaceWrappers) {
+		return K(R(s, replaceWrappers));
 	}
 
-	public static List<String> B(List<String> s, Object... replaceSources) {
-		return K(R(s, Main.getInstance().getRWManager().getRWs(replaceSources)));
+	public static List<String> B(List<String> s, RW... replaceWrappers) {
+		return K(R(s, replaceWrappers));
 	}
 	
 	public static String S(String s){
