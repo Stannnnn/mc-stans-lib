@@ -1,0 +1,6 @@
+.classpath
+*.launch
+builder.xml
+*.class
+.project
+.settings/
