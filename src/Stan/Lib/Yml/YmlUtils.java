@@ -241,18 +241,10 @@ public class YmlUtils {
 	}
 	
 	public static boolean set(Data data, String configurationSection, Object object){
-		return set(data.getData(), configurationSection, object, false);
-	}
-	
-	public static boolean set(Data data, String configurationSection, Object object, boolean isArray){
-		return set(data.getData(), configurationSection, object, isArray);
+		return set(data.getData(), configurationSection, object);
 	}
 	
 	public static boolean set(YamlConfiguration yamlConfiguration, String configurationSection, Object object){
-		return set(yamlConfiguration, configurationSection, object, false);
-	}
-	
-	public static boolean set(YamlConfiguration yamlConfiguration, String configurationSection, Object object, boolean isArray){
 		ConfigurationSection cs;
 		
 		if (yamlConfiguration.isConfigurationSection(configurationSection)){
@@ -261,35 +253,31 @@ public class YmlUtils {
 			cs = yamlConfiguration.createSection(configurationSection);
 		}
 		
-		return set(cs, object, isArray);
+		return set(cs, object);
 	}
 
-	private static boolean set(ConfigurationSection cs, Object object, boolean isArray) {
-		if (!isArray){
-			return set(cs, object, null);
-		}else{
-			if (Iterable.class.isAssignableFrom(object.getClass())) {
-				Iterable<?> iterable = (Iterable<?>) object;
-				Iterator<?> iterator = iterable.iterator();
-				int i = 0;
-				while (iterator.hasNext()) {
-					set(cs, iterator.next(), String.valueOf(i++));
-				}
-				return true;
-			}else{
-				new IllegalArgumentException("So you're telling me this is an array? You're crazy!").printStackTrace();
-				return false;
+	private static boolean set(ConfigurationSection cs, Object object) {
+		if (Iterable.class.isAssignableFrom(object.getClass())) {
+			Iterable<?> iterable = (Iterable<?>) object;
+			Iterator<?> iterator = iterable.iterator();
+			int i = 0;
+			while (iterator.hasNext()) {
+				set(cs, iterator.next(), String.valueOf(i++));
 			}
+			return true;
+		}else{
+//				new IllegalArgumentException("So you're telling me this is an array? You're crazy!").printStackTrace();
+			return set(cs, object, null);
 		}
 	}
 
 	private static boolean set(ConfigurationSection cs, Object object, String prefix) {
-		if (Enum.class.isAssignableFrom(object.getClass())){
-			cs.set(prefix, ((Enum<?>)object).name());
-			return true;
-		}
-		
 		if (object != null) {
+			if (Enum.class.isAssignableFrom(object.getClass())){
+				cs.set(prefix, ((Enum<?>)object).name());
+				return true;
+			}
+			
 			Map<String, ObjWrap> map = new HashMap<>();
 
 			Class<?> a = object.getClass();
@@ -502,7 +490,7 @@ public class YmlUtils {
 	}
 
 	private static boolean isPrimitiveOrWrapperOrObject(Class<?> check) {
-		return ClassUtils.isPrimitiveOrWrapper(check) || check.getName().equals("java.lang.String") || check.getName().equals("java.lang.Object");
+		return ClassUtils.isPrimitiveOrWrapper(check) || check.getName().equals("java.lang.String") /*|| check.getName().equals("java.lang.Object")*/;
 	}
 
 }

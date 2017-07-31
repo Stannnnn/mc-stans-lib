@@ -14,6 +14,15 @@ public class Yml_Amount {
 
 	@YmlObject
 	private int max = 1;
+	
+	public Yml_Amount(){
+		
+	}
+	
+	public Yml_Amount(Builder builder){
+		this.min = builder.min;
+		this.max = builder.max;
+	}
 
 	public int getAmount() {
 		if (min == max) {
@@ -32,6 +41,25 @@ public class Yml_Amount {
 	@Override
 	public String toString() {
 		return "Yml_Amount [min=" + min + ", max=" + max + "]";
+	}
+	
+	public static class Builder{
+		private int min;
+		private int max;
+		
+		public Builder min(int min){
+			this.min = min;
+			return this;
+		}
+		
+		public Builder max(int max){
+			this.max = max;
+			return this;
+		}
+		
+		public Yml_Amount build(){
+			return new Yml_Amount(this);
+		}
 	}
 
 }

@@ -58,10 +58,11 @@ public class Main extends JavaPlugin {
 		if (hookManager != null){
 			hookManager.onDisable();
 		}
-
+		
 		System.out.println(AnsiUtils.ANSI_BLUE + "Unloaded Stan's Lib" + Stan.Lib.Utils.AnsiUtils.ANSI_RESET);
 	}
 	
+	// Use this method to print failures related to the configuration of the plugin
 	public void printFailure(String message) {
 		System.out.println(AnsiUtils.ANSI_RED + "!!" + AnsiUtils.ANSI_RESET + " " + message);
 	}

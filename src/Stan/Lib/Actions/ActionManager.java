@@ -59,7 +59,7 @@ public class ActionManager implements IManager {
 		}
 	}
 
-	private void executeActions(List<Yml_Action> actions, Player player, RW... customVariables) {
+	public void executeActions(List<Yml_Action> actions, Player player, RW... customVariables) {
 		new ActionExecutor(actions).execute(executorService, player, customVariables);
 	}
 
@@ -150,11 +150,11 @@ public class ActionManager implements IManager {
 			@Override
 			public void run() {
 				if (player != null) {
-					System.out.println("NOWWW");
-
-					for (RW rw : actions.getCustomVariables()) {
-						System.out.println(rw);
-					}
+//					System.out.println("NOWWW");
+//
+//					for (RW rw : actions.getCustomVariables()) {
+//						System.out.println(rw);
+//					}
 
 					player.sendMessage(ChatUtils.B(action.getValue(), actions.getCustomVariables()));
 				}
@@ -256,31 +256,6 @@ public class ActionManager implements IManager {
 			}
 		}));
 
-		actionMethods.put("VaultPlayerDeposit", new ActionMethod(new ActionRunnable() {
-			@Override
-			public void run() {
-				if (!Main.getInstance().getVaultHook().isHooked()) {
-					failure = true;
-					return;
-				}
-
-				if (player == null) {
-					failure = true;
-					return;
-				}
-
-				if (CastUtils.isInt(action.getValue())) {
-					int val = CastUtils.parseInt(action.getValue());
-
-					if (!Main.getInstance().getVaultHook().hasBalance(player, val)) {
-						failure = true;
-					}
-				} else {
-					failure = true;
-				}
-			}
-		}));
-
 		actionMethods.put("AwaitInput", new ActionMethod(new ActionRunnable() {
 			@Override
 			public void run() {
@@ -300,7 +275,7 @@ public class ActionManager implements IManager {
 
 				while (waiting) {
 					try {
-						System.out.println(Thread.currentThread().hashCode());
+//						System.out.println(Thread.currentThread().hashCode());
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						return;

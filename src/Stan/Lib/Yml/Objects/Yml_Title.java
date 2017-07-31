@@ -18,6 +18,18 @@ public class Yml_Title {
 
 	@YmlObject
 	private int fadeOut;
+	
+	public Yml_Title(){
+		
+	}
+	
+	private Yml_Title(Builder builder){
+		this.title = builder.title;
+		this.subtitle = builder.subtitle;
+		this.fadeIn = builder.fadeIn;
+		this.stay = builder.stay;
+		this.fadeOut = builder.fadeOut;
+	}
 
 	public String getTitle() {
 		return title;
@@ -37,5 +49,43 @@ public class Yml_Title {
 
 	public int getFadeOut() {
 		return fadeOut;
+	}
+	
+	public static class Builder{
+		private String title;
+		private String subtitle;
+		private int fadeIn;
+		private int stay;
+		private int fadeOut;
+		
+		public Builder title(String title){
+			this.title = title;
+			return this;
+		}
+		
+		public Builder subtitle(String subtitle){
+			this.subtitle = subtitle;
+			return this;
+		}
+		
+		public Builder fadeIn(int fadeIn){
+			this.fadeIn = fadeIn;
+			return this;
+		}
+		
+		public Builder stay(int stay){
+			this.stay = stay;
+			return this;
+		}
+		
+		public Builder fadeOut(int fadeOut){
+			this.fadeOut = fadeOut;
+			return this;
+		}
+		
+		public Yml_Title build(){
+			return new Yml_Title(this);
+		}
+		
 	}
 }

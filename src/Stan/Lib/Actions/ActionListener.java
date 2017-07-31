@@ -20,12 +20,15 @@ public class ActionListener implements Listener {
 		if (actionManager.getAwaitingInput().containsKey(e.getPlayer().getName())) {
 			e.setCancelled(true);
 			e.getRecipients().clear();
+			
+			String message = e.getMessage();
+			e.setMessage("");
 
-			if (e.getMessage().equalsIgnoreCase("c") || e.getMessage().equalsIgnoreCase("cancel")) {
+			if (message.equalsIgnoreCase("c") || message.equalsIgnoreCase("cancel")) {
 				actionManager.getAwaitingInput().get(e.getPlayer().getName()).cancel();
 				Main.getInstance().getLanguageManager().sendLanguage(e.getPlayer(), "InputCancel");
 			} else {
-				actionManager.getAwaitingInput().get(e.getPlayer().getName()).result(e.getMessage());
+				actionManager.getAwaitingInput().get(e.getPlayer().getName()).result(message);
 			}
 			
 			actionManager.getAwaitingInput().remove(e.getPlayer().getName());

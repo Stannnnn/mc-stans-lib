@@ -14,11 +14,6 @@ public abstract class ActionRunnable implements Runnable, Cloneable {
 
 	protected boolean failure;
 	protected boolean waiting;
-	
-	public void preRun(){
-		failure = false;
-		waiting = false;
-	}
 
 	public abstract void run();
 	

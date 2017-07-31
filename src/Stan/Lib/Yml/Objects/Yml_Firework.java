@@ -1,10 +1,10 @@
 package Stan.Lib.Yml.Objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
 
@@ -17,6 +17,15 @@ public class Yml_Firework {
 	
 	@YmlObject
 	private List<Yml_FireworkEffect> effects;
+	
+	public Yml_Firework(){
+		
+	}
+	
+	private Yml_Firework(Builder builder){
+		this.power = builder.power;
+		this.effects = builder.effects;
+	}
 
 	public Firework getFirework(Firework base){
 		FireworkMeta fwm = base.getFireworkMeta();
@@ -25,7 +34,7 @@ public class Yml_Firework {
 		
 		if (effects != null){
 			for (Yml_FireworkEffect effect : effects){
-				Builder builder = FireworkEffect.builder().flicker(effect.isFlicker()).trail(effect.isTrail());
+				org.bukkit.FireworkEffect.Builder builder = FireworkEffect.builder().flicker(effect.isFlicker()).trail(effect.isTrail());
 				
 				if (effect.getColors() != null){
 					builder.withColor(effect.getColors());
@@ -47,6 +56,29 @@ public class Yml_Firework {
 		
 		base.setFireworkMeta(fwm);
 		return base;
+	}
+	
+	public static class Builder{
+		private int power;
+		private List<Yml_FireworkEffect> effects;
+		
+		public Builder(){
+			effects = new ArrayList<>();
+		}
+		
+		public Builder withPower(int power){
+			this.power = power;
+			return this;
+		}
+		
+		public Builder addEffect(Yml_FireworkEffect effect){
+			effects.add(effect);
+			return this;
+		}
+		
+		public Yml_Firework build(){
+			return new Yml_Firework(this);
+		}
 	}
 	
 }

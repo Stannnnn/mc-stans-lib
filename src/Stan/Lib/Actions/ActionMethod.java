@@ -20,13 +20,6 @@ public class ActionMethod implements Cloneable {
 	}
 	
 	public void initialize(ActionExecutor actions, Yml_Action action, Player player){
-		try {
-			runnable = runnable.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		runnable.actions = actions;
 		runnable.action = action;
 		runnable.player = player;
@@ -37,13 +30,12 @@ public class ActionMethod implements Cloneable {
 			throw new IllegalArgumentException("Call initialize before calling execute!");
 		}
 		
-		runnable.preRun();
-		
 		if (async) {
 			runnable.run();
 		} else {
 			Main.getInstance().getServer().getScheduler().runTask(Main.getInstance(), runnable);
 		}
+		
 		return runnable;
 	}
 	
@@ -52,7 +44,9 @@ public class ActionMethod implements Cloneable {
 	}
 	
 	public ActionMethod clone() throws CloneNotSupportedException{
-		return (ActionMethod) super.clone();
+		ActionMethod am = (ActionMethod) super.clone();
+		am.runnable = runnable.clone();
+		return am;
 	}
 
 }

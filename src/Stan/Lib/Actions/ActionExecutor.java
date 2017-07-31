@@ -72,16 +72,14 @@ public class ActionExecutor {
 			
 			ActionMethod actionMethod = Main.getInstance().getActionManager().getActionMethod(a.getAction());
 			if (actionMethod == null) {
+				Main.getInstance().printFailure("Action " + a.getAction() + " does not exist.");
 				continue;
 			}
 			
-			System.out.println("Executing: " + a.getAction() + " on " + this.hashCode());
-			
 			try {
 				actionMethod = actionMethod.clone();
-			} catch (CloneNotSupportedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
 			}
 			
 			actionMethod.initialize(this, a, player);
@@ -97,21 +95,7 @@ public class ActionExecutor {
 				final Player b = player;
 				final RW[] c = replaceWrappers;
 							
-				Thread ffs = new Thread(new Runnable() {
-				
-					@Override
-					public void run() {
-						executeNow(za, b, c);
-					}
-				});
-				ffs.start();
-				
-				try {
-					ffs.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				executeNow(za, b, c);
 			}
 		}
 	}
@@ -162,18 +146,16 @@ public class ActionExecutor {
 		}
 		
 		if (!variable.startsWith("{")){
-			variable = "{" + variable;
+			throw new IllegalArgumentException("Variables must start with {");
 		}
 		
 		if (!variable.endsWith("}")){
-			variable = variable + "}";
+			throw new IllegalArgumentException("Variables must end with }");
 		}
 		
 		if (hasCustomVariable(variable)) {
 			removeCustomVariable(variable);
 		}
-		
-		System.out.println("Added: " + variable + " " + value + " on " + this.hashCode());
 
 		customVariables.add(new RW(variable, value));
 	}

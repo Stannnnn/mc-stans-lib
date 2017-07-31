@@ -48,7 +48,7 @@ public class YmlTests {
 		
 		ArrayList<Yml_Action> actions = (ArrayList<Yml_Action>) YmlUtils.get(d, "b.b.c.Actions", Yml_Action.class, true);
 		
-		YmlUtils.set(d, "b.d", actions, true);
+		YmlUtils.set(d, "b.d", actions);
 		
 		d.saveData();
 	}
@@ -65,7 +65,7 @@ public class YmlTests {
 		
 		System.out.println(actions.get(0));
 		
-		YmlUtils.set(d, "b.d", actions, true);
+		YmlUtils.set(d, "b.d", actions);
 		
 		d.saveData();
 	}
